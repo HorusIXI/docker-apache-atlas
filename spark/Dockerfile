@@ -1,4 +1,4 @@
-FROM ubuntu:21.04 as base
+FROM ubuntu:22.04 as base
 
 LABEL maintainer="Lucas Miguel Ponce <lucasmsp@dcc.ufmg.br>"
 
