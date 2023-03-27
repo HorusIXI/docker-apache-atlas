@@ -6,6 +6,8 @@ ENV ATLAS_REV "21b15842fd74bc91910b2d8901dbea57769065d0"
 RUN git clone http://github.com/apache/atlas.git \
 	&& cd atlas \
 	&& git reset --hard $ATLAS_REV \
+	&& export MAVEN_OPTS="-Xms2g -Xmx2g" \
+        && mvn -DskipTests -P autoInstallPackage -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.insecure=true clean install \
 	&& mvn clean -DskipTests package -Pdist,embedded-hbase-solr \
 	&& mv distro/target/apache-atlas-*-bin.tar.gz /apache-atlas.tar.gz
 
