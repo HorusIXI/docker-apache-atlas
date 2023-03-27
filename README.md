@@ -10,17 +10,22 @@ This cluster in docker contains Apache Atlas (and its dependencies) with a minim
 * Kafka and Zookeeper (Atlas also depends on them);
 * HDFS 2.7;
 * Hive 2.3.2;
-* Spark 2.4.
+* Spark 3.3.2.
 
 ### Quickstart
 
-1. run `docker-compose build` to build this all docker image or
-2. run `docker-compose up` to start all cluster services (it may take some time).
-3. wait for the above message:
+1. run `git clone https://github.com/HorusIXI/docker-apache-atlas` to clone the repository
+2. run `cd docker-apache-atlas/` to jump into the repository
+3. run `docker-compose build` to build this all docker image or
+4. run `docker-compose up` to start all cluster services (it may take some time).
+5. wait for the above message:
 
 ```
 atlas-server_1 | Apache Atlas Server started!!!
 atlas-server_1 | 
+atlas-server_1 | waiting for atlas to be ready
+atlas-server_1 | waiting for atlas to be ready
+atlas-server_1 | waiting for atlas to be ready
 atlas-server_1 | waiting for atlas to be ready
 atlas-server_1 | .....
 atlas-server_1 | Server: Apache Atlas
