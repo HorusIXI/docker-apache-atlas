@@ -1,6 +1,7 @@
 
 # Cluster Docker: Apache Atlas
-
+## Copy with corrections From:
+https://github.com/lucasmsp/docker-atlas 
 
 ## Background
 
