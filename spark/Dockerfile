@@ -5,7 +5,7 @@ LABEL maintainer="Lucas Miguel Ponce <lucasmsp@dcc.ufmg.br>"
 ENV SPARK_HOME /usr/local/spark
 
 ENV PYTHONPATH $PYTHONPATH:$SPARK_HOME/python:${SPARK_HOME}/python/lib/pyspark.zip:${SPARK_HOME}/python/lib/py4j-*.zip
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 ENV PATH="${PATH}:${JAVA_HOME}"
 ENV TERM=xterm\
     TZ=America/Sao_Paulo\
@@ -29,21 +29,21 @@ RUN apt update && apt install -y \
   && echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale \
   && rm -rf /var/lib/apt/lists/*
 
-ENV SPARK_VERSION=2.4
-ENV HADOOP_VERSION=2.7
+ENV SPARK_VERSION=3.3.2
+ENV HADOOP_VERSION=3
 ENV SPARK_BASE_URL=http://www.apache.org/dist/spark
 
 # Get latest spark based on major.minor version
 RUN SPARK_LATEST_VERSION=$(\
       curl -sL ${SPARK_BASE_URL} | \
-      grep -Eo "spark-${SPARK_VERSION}\.[0-9]{1}" | \
+      grep -Eo "spark-${SPARK_VERSION}" | \
       head -1 \
-    ) \
-  && SPARK_HADOOP_PKG=${SPARK_LATEST_VERSION}-bin-hadoop${HADOOP_VERSION} \
-  && SPARK_HADOOP_URL=${SPARK_BASE_URL}/${SPARK_LATEST_VERSION}/${SPARK_HADOOP_PKG}.tgz \
-  && curl -sL ${SPARK_HADOOP_URL} | tar -xz -C /usr/local/  &&\
-    mv /usr/local/$SPARK_HADOOP_PKG $SPARK_HOME &&\
-    ln -s /usr/local/spark /opt/spark
+    ) && echo $SPARK_LATEST_VERSION \
+  && SPARK_HADOOP_PKG=${SPARK_LATEST_VERSION}-bin-hadoop${HADOOP_VERSION} && echo $SPARK_HADOOP_PKG \
+  && SPARK_HADOOP_URL=${SPARK_BASE_URL}/${SPARK_LATEST_VERSION}/${SPARK_HADOOP_PKG}.tgz && echo $SPARK_HADOOP_URL \
+  && curl -sL ${SPARK_HADOOP_URL} | tar -xz -C /usr/local/ \
+  && mv /usr/local/$SPARK_HADOOP_PKG $SPARK_HOME \
+  && ln -s /usr/local/spark /opt/spark
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
